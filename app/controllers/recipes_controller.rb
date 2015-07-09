@@ -83,6 +83,7 @@ class RecipesController < ApplicationController
     end
   end
   
+  
   def admin_user
       redirect_to recipes_path unless current_user.admin?
   end

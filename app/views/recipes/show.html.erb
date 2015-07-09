@@ -40,5 +40,52 @@
     </div>
   </div>
 </div>
+    <p>
+      <h5><b><%= @recipe.reviews.count %> Reviews on Chef <%= @recipe.chef.chefname %>'s <%= @recipe.name %></b></h5>
+    </p>
+   <% if @recipe.reviews.any? %>
+  <div class="row">
+    <div class="col-md-6 pull-left center">
+      <div class="well">
+        <h2></h2>
+        <% @recipe.reviews.each do |c| %>
+          <p align= "left">
+            <b>Review:</b>
+              <%=h c.body %>
+          </p>
+          <p align= "left">
+            <b>Reviewer:</b>
+            <%=h c.chef.chefname %>
+          </p>
+          
+          <hr>
+        <% end %>
+      
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+
+<% if logged_in? %>
+    <h3>Add a Review</h3>
+  <div class="row">
+    <div class="col-md-6 pull-left center">
+      <div class="well">
+      <%= form_for([@recipe, @recipe.reviews.build]) do |f| %>
+
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Add your review" %>
+  </p>
+<% end %>
+      </div>
+    </div>
+  </div>
+<% end %>    
 
 <h5><%= link_to "Return to Recipes Listing", recipes_path, class: "btn btn-warning btn-small" %></h5>
