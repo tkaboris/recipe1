@@ -69,6 +69,7 @@
 
 
 <% if logged_in? %>
+<%= render 'shared/errors', obj: @recipe %>
     <h3>Add a Review</h3>
   <div class="row">
     <div class="col-md-6 pull-left center">

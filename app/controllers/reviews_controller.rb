@@ -10,7 +10,8 @@ class ReviewsController < ApplicationController
         if @review.save
           format.html { redirect_to @recipe, notice: 'Your Review was successfully created.' }
         else
-          format.html { render action: "new" }
+          flash[:danger] = "Your review must be between 10 and 500 characters long."
+          format.html {redirect_to :back}
         end
       end
     end
