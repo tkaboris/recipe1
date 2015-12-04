@@ -10,7 +10,7 @@
   <div class="col-md-8">
     <% if logged_in? and (@recipe.chef == current_user || current_user.admin?) %>
       <%= link_to "Edit this Recipe", edit_recipe_path(@recipe), class: "btn btn-success pull-right" %>
-    <% end %>  
+    <% end %>
     <% if logged_in? and current_user.admin? %>
     <%= link_to "[Delete Recipe]", @recipe, method: :delete, data: {confirm: "Are you sure you want to delete this Recipe?"} %>
     <% end %>
@@ -52,15 +52,18 @@
           <p align= "left">
             <b>Review:</b>
               <%=h c.body %>
+              <p>
+      <%= image_tag(@recipe.picture.url, size: "250x150", class: "gravatar") if @recipe.picture? %>
+    </p>
           </p>
           <p align= "left">
             <b>Reviewer:</b>
             <%=h c.chef.chefname %>
           </p>
-          
+
           <hr>
         <% end %>
-      
+
       </div>
     </div>
   </div>
@@ -74,11 +77,12 @@
   <div class="row">
     <div class="col-md-6 pull-left center">
       <div class="well">
-      <%= form_for([@recipe, @recipe.reviews.build]) do |f| %>
+      <%= form_for([@recipe, @recipe.reviews.build], html: { multipart: true } ) do |f| %>
 
   <p>
     <%= f.label :body %><br />
     <%= f.text_area :body %>
+    <%= f.file_field :picture %>
   </p>
   <p>
     <%= f.submit "Add your review" %>
@@ -87,6 +91,6 @@
       </div>
     </div>
   </div>
-<% end %>    
+<% end %>
 
 <h5><%= link_to "Return to Recipes Listing", recipes_path, class: "btn btn-warning btn-small" %></h5>
